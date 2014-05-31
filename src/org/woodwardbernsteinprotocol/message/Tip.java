@@ -9,7 +9,7 @@ import java.io.OutputStream;
 public class Tip extends MessageNode {
 
     String message;
-    
+
     @Override
     public void transmitContent(OutputStream stream) {
 

@@ -2,10 +2,7 @@ package org.woodwardbernsteinprotocol.protocol;
 
 import org.woodwardbernsteinprotocol.message.Tip;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 
 /**
  * Created by dmcennis on 5/31/2014.
@@ -24,8 +21,9 @@ public class FileTransfer implements LinkProtocol {
     }
 
     @Override
-    public void parse(Tip tip) throws IOException{
-        FileInputStream input = new FileInputStream(dest);
+    public Tip parse(InputStream input) throws IOException{
+        Tip tip = new Tip();
         tip.parse(input);
+        return tip;
     }
 }
