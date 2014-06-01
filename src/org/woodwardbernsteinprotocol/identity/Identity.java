@@ -10,7 +10,7 @@ import java.io.Serializable;
  */
 public interface Identity extends Serializable {
 
-    public void parse(InputStream stream) throws IOException;
+    public void parse(InputStream stream) throws IOException, ClassNotFoundException;
 
     public void transmit(OutputStream stream) throws IOException;
 

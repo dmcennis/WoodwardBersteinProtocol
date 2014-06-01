@@ -1,8 +1,6 @@
 package org.woodwardbernsteinprotocol.message;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.util.Vector;
 
 /**
@@ -17,23 +15,13 @@ public class AnalysisNode extends MessageNode {
 
     @Override
     public void transmitContent(OutputStream stream) throws IOException {
-        stream.write(analysisContent.getBytes(),0,analysisContent.getBytes().length);
-        stream.write('\0');
+        ObjectOutputStream output = new ObjectOutputStream(stream);
+        output.writeObject(analysisContent);
     }
 
     @Override
-    public void parseContent(InputStream stream) throws IOException{
-        int data;
-        int read = 0;
-        Vector<Byte> content = new Vector<Byte>();
-        while((data = stream.read())!= '\0'){
-            content.add((byte)data);
-        }
-        byte[] c = new byte[content.size()];
-        for( int i=0;i<content.size();++i){
-            c[i] = content.get(i);
-        }
-        analysisContent = new String(c);
+    public void parseContent(InputStream stream) throws IOException, ClassNotFoundException{
+        analysisContent = (String)(new ObjectInputStream(stream)).readObject();
     }
 
     @Override
@@ -41,4 +29,8 @@ public class AnalysisNode extends MessageNode {
         return analysisContent;
     }
 
+    @Override
+    public void setContent(Object content){
+        this.analysisContent = (String)content;
+    }
 }

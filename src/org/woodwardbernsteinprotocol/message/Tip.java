@@ -1,5 +1,8 @@
 package org.woodwardbernsteinprotocol.message;
 
+import org.woodwardbernsteinprotocol.identity.Identity;
+import org.woodwardbernsteinprotocol.identity.IdentityName;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -11,6 +14,23 @@ import java.util.Vector;
 public class Tip extends MessageNode {
 
     String message;
+
+    public Tip(){
+    }
+
+    public Tip(String message, IdentityName id){
+        super();
+        this.message = message;
+        this.id = id;
+    }
+
+    public Tip(String message,IdentityName id, Vector<MessageInterface> children){
+        super();
+        this.message = message;
+        this.id = id;
+        this.children.addAll(children);
+    }
+
 
     @Override
     public void transmitContent(OutputStream stream) throws IOException{
@@ -38,4 +58,8 @@ public class Tip extends MessageNode {
         return message;
     }
 
+    @Override
+    public void setContent(Object o) {
+        message = (String)o;
+    }
 }

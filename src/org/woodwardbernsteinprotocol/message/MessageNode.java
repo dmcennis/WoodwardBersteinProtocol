@@ -2,6 +2,7 @@ package org.woodwardbernsteinprotocol.message;
 
 import org.woodwardbernsteinprotocol.identity.Context;
 import org.woodwardbernsteinprotocol.identity.Identity;
+import org.woodwardbernsteinprotocol.identity.IdentityName;
 import org.woodwardbernsteinprotocol.node.ContextCreation;
 
 import java.io.IOException;
@@ -17,7 +18,7 @@ public abstract class MessageNode implements MessageInterface, Serializable {
 
     Vector<MessageInterface> children = new Vector<MessageInterface>();
     MessageInterface parent;
-    Identity id;
+    IdentityName id = new IdentityName("Anonymous");
 
     @Override
     public Vector<MessageInterface> getChildren() {
@@ -36,7 +37,8 @@ public abstract class MessageNode implements MessageInterface, Serializable {
     public abstract void transmitContent(OutputStream stream) throws IOException;
 
     @Override
-    public void parse(InputStream stream) throws IOException {
+    public void parse(InputStream stream) throws IOException, ClassNotFoundException {
+        id = new IdentityName();
         id.parse(stream);
         parseContent(stream);
         for(MessageInterface message: children){
@@ -44,11 +46,26 @@ public abstract class MessageNode implements MessageInterface, Serializable {
         }
     }
 
-    public abstract void parseContent(InputStream stream) throws IOException;
+    public abstract void parseContent(InputStream stream) throws IOException, ClassNotFoundException;
 
     @Override
     public Identity getIdentity() {
         return id;
+    }
+
+    @Override
+    public void addChild(MessageInterface message) {
+        children.add(message);
+    }
+
+    @Override
+    public void addAllChildren(Vector<MessageInterface> kids) {
+        children.addAll(kids);
+    }
+
+    @Override
+    public void setIdentity(Identity id) {
+        this.id = (IdentityName)id;
     }
 
     @Override

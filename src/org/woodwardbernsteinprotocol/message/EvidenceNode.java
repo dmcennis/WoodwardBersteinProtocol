@@ -23,8 +23,13 @@ public class EvidenceNode extends MessageNode {
     }
 
     @Override
-    public Object getContent() {
+    public EvidenceObject getContent() {
         return object;
+    }
+
+    @Override
+    public void setContent(Object evidence){
+        object = (EvidenceObject)evidence;
     }
 
 }

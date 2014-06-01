@@ -44,7 +44,7 @@ public class DirectTransfer implements LinkProtocol {
     }
 
     @Override
-    public Tip parse(InputStream input) throws IOException {
+    public Tip parse(InputStream input) throws IOException, ClassNotFoundException {
         InputStream data = new Base64InputStream(input);
         Tip tip = new Tip();
         tip.parse(data);

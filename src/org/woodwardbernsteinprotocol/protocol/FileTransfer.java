@@ -21,7 +21,7 @@ public class FileTransfer implements LinkProtocol {
     }
 
     @Override
-    public Tip parse(InputStream input) throws IOException{
+    public Tip parse(InputStream input) throws IOException, ClassNotFoundException{
         Tip tip = new Tip();
         tip.parse(input);
         return tip;
