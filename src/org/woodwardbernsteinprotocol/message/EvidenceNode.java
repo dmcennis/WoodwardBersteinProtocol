@@ -12,14 +12,16 @@ public class EvidenceNode extends MessageNode {
 
     EvidenceObject object;
 
+    public EvidenceNode(){type = Types.EVIDENCE;}
+
     @Override
     public void transmitContent(OutputStream stream) throws IOException {
         object.write(stream);
     }
 
     @Override
-    public void parseContent(InputStream stream) throws IOException{
-        object.read(stream);
+    public void parseContent(InputStream stream) throws IOException, ClassNotFoundException{
+        object = EvidenceObject.read(stream);
     }
 
     @Override

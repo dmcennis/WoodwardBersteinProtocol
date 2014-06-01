@@ -12,5 +12,5 @@ public interface LinkProtocol {
 
     public void transmit(Tip tip) throws IOException;
 
-    public Tip parse(InputStream input) throws IOException, ClassNotFoundException;
+    public Tip parse() throws IOException, ClassNotFoundException;
 }

@@ -3,9 +3,7 @@ package org.woodwardbernsteinprotocol.message;
 import org.woodwardbernsteinprotocol.identity.Identity;
 import org.woodwardbernsteinprotocol.identity.IdentityName;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.util.Vector;
 
 /**
@@ -16,12 +14,14 @@ public class Tip extends MessageNode {
     String message;
 
     public Tip(){
+        type = Types.TIP;
     }
 
     public Tip(String message, IdentityName id){
         super();
         this.message = message;
         this.id = id;
+        type = Types.TIP;
     }
 
     public Tip(String message,IdentityName id, Vector<MessageInterface> children){
@@ -34,23 +34,17 @@ public class Tip extends MessageNode {
 
     @Override
     public void transmitContent(OutputStream stream) throws IOException{
-        stream.write(message.getBytes(),0,message.getBytes().length);
-        stream.write('\0');
+        (new ObjectOutputStream(stream)).writeObject(message);
+    }
+
+    public static Tip staticParseContent(InputStream stream) throws IOException, ClassNotFoundException{
+        String message = (String)(new ObjectInputStream(stream)).readObject();
+        return new Tip(new String(message),new IdentityName("Anonymous"));
     }
 
     @Override
-    public void parseContent(InputStream stream) throws IOException{
-        int data;
-        int read = 0;
-        Vector<Byte> content = new Vector<Byte>();
-        while((data = stream.read())!= '\0'){
-            content.add((byte)data);
-        }
-        byte[] c = new byte[content.size()];
-        for( int i=0;i<content.size();++i){
-            c[i] = content.get(i);
-        }
-        message = new String(c);
+    public void parseContent(InputStream stream) throws IOException, ClassNotFoundException {
+        message = (String)(new ObjectInputStream(stream)).readObject();
     }
 
     @Override

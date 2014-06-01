@@ -4,9 +4,7 @@ import org.woodwardbernsteinprotocol.identity.Context;
 import org.woodwardbernsteinprotocol.identity.Identity;
 import org.woodwardbernsteinprotocol.node.ContextCreation;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.util.Vector;
 
 /**
@@ -15,12 +13,23 @@ import java.util.Vector;
 public class ReputationDecorator<Node extends MessageNode> implements MessageInterface {
     Node content;
 
-    byte reputationScore = 0;
+    float reputationScore = 0.0f;
 
 
 
     public ReputationDecorator(Node node){
         content = node;
+        switch(node.type){
+            case TIP:
+                content.type = Types.TIP_REP;
+                break;
+            case ANALYSIS:
+                content.type = Types.ANALYSIS_REP;
+                break;
+            case EVIDENCE:
+                content.type = Types.EVIDENCE_REP;
+                break;
+        }
     }
 
     @Override
@@ -29,33 +38,23 @@ public class ReputationDecorator<Node extends MessageNode> implements MessageInt
     }
 
     @Override
-    public void transmit(OutputStream stream) throws IOException {
-        content.getIdentity().transmit(stream);
-        transmitContent(stream);
-        for(MessageInterface message : content.getChildren()){
-            message.transmit(stream);
-        }
+    public Types getType() {
+        return content.getType();
     }
 
-    public void transmitContent(OutputStream stream) throws IOException {
-        content.transmitContent(stream);
-        stream.write(reputationScore);
+    @Override
+    public void transmit(OutputStream stream) throws IOException {
+
+        (new ObjectOutputStream(stream)).writeObject(content.getType());
+        (new ObjectOutputStream(stream)).writeObject(new Float(reputationScore));
+        content.transmit(stream);
     }
 
     @Override
     public void parse(InputStream stream) throws IOException, ClassNotFoundException {
-        content.getIdentity().parse(stream);
-        parseContent(stream);
-        for(MessageInterface message: content.getChildren()){
-            message.parse(stream);
-        }
-    }
-
-    public void parseContent(InputStream stream) throws IOException, ClassNotFoundException {
-        content.parseContent(stream);
-        byte[] data = new byte[1];
-        stream.read(data,0,1);
-        reputationScore = data[0];
+        reputationScore = ((Float)(new ObjectInputStream(stream)).readObject()).floatValue();
+        (new ObjectInputStream(stream)).readObject();
+        content.parse(stream);
     }
 
     @Override

@@ -35,4 +35,7 @@ public interface MessageInterface extends Serializable{
 
     public Context getContext(ContextCreation preference);
 
+    public Types getType();
+
+    public static enum Types {TIP,TIP_REP,ANALYSIS,ANALYSIS_REP,EVIDENCE,EVIDENCE_REP};
 }

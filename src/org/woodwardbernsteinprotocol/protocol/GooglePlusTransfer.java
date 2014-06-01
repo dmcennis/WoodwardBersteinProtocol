@@ -15,7 +15,7 @@ public class GooglePlusTransfer implements LinkProtocol {
     }
 
     @Override
-    public Tip parse(InputStream input) throws IOException, ClassNotFoundException {
+    public Tip parse() throws IOException, ClassNotFoundException {
         return null;
     }
 }

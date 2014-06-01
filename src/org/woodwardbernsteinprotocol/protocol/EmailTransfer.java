@@ -16,7 +16,7 @@ public class EmailTransfer implements LinkProtocol {
     }
 
     @Override
-    public Tip parse(InputStream input) throws IOException, ClassNotFoundException {
+    public Tip parse() throws IOException, ClassNotFoundException {
         return null;
     }
 }

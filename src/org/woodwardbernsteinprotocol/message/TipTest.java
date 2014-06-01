@@ -25,8 +25,7 @@ public class TipTest extends TestCase {
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         tip.transmit(output);
         ByteArrayInputStream input = new ByteArrayInputStream(output.toByteArray());
-        Tip in = new Tip();
-        in.parse(input);
+        Tip in = (Tip)MessageFactory.parse(input);
         assertEquals(in.getContent(),"A tip");
         assertEquals(tip.getIdentity(),name);
     }
@@ -56,8 +55,7 @@ public class TipTest extends TestCase {
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         tip.transmit(output);
         ByteArrayInputStream input = new ByteArrayInputStream(output.toByteArray());
-        Tip in = new Tip();
-        in.parse(input);
+        Tip in = (Tip)MessageFactory.parse(input);
         assertEquals("A tip",in.getContent());
         assertEquals(name,tip.getIdentity());
         assertEquals(1,tip.getChildren().size());

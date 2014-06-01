@@ -17,6 +17,12 @@ public class DirectTransfer implements LinkProtocol {
 
     HostConfiguration config = new HostConfiguration();
 
+    InputStream reader=null;
+
+    public void setInputStream(InputStream stream){
+        reader = stream;
+    }
+
     public DirectTransfer(){
         config = null;
     }
@@ -44,8 +50,8 @@ public class DirectTransfer implements LinkProtocol {
     }
 
     @Override
-    public Tip parse(InputStream input) throws IOException, ClassNotFoundException {
-        InputStream data = new Base64InputStream(input);
+    public Tip parse() throws IOException, ClassNotFoundException {
+        InputStream data = new Base64InputStream(reader);
         Tip tip = new Tip();
         tip.parse(data);
         return tip;

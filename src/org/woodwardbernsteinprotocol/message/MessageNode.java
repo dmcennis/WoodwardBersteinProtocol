@@ -1,20 +1,20 @@
 package org.woodwardbernsteinprotocol.message;
 
+import org.apache.avro.Schema;
 import org.woodwardbernsteinprotocol.identity.Context;
 import org.woodwardbernsteinprotocol.identity.Identity;
 import org.woodwardbernsteinprotocol.identity.IdentityName;
 import org.woodwardbernsteinprotocol.node.ContextCreation;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.Serializable;
+import java.io.*;
 import java.util.Vector;
 
 /**
  * Created by dmcennis on 5/31/2014.
  */
 public abstract class MessageNode implements MessageInterface, Serializable {
+
+    Types type;
 
     Vector<MessageInterface> children = new Vector<MessageInterface>();
     MessageInterface parent;
@@ -27,8 +27,10 @@ public abstract class MessageNode implements MessageInterface, Serializable {
 
     @Override
     public void transmit(OutputStream stream) throws IOException {
+        (new ObjectOutputStream(stream)).writeObject(type);
         id.transmit(stream);
         transmitContent(stream);
+        stream.write(children.size());
         for(MessageInterface message : children){
             message.transmit(stream);
         }
@@ -41,8 +43,9 @@ public abstract class MessageNode implements MessageInterface, Serializable {
         id = new IdentityName();
         id.parse(stream);
         parseContent(stream);
-        for(MessageInterface message: children){
-            message.parse(stream);
+        int count = stream.read();
+        for(int i=0;i<count;++i){
+            children.add(MessageFactory.parse(stream));
         }
     }
 
@@ -61,6 +64,11 @@ public abstract class MessageNode implements MessageInterface, Serializable {
     @Override
     public void addAllChildren(Vector<MessageInterface> kids) {
         children.addAll(kids);
+    }
+
+    @Override
+    public Types getType() {
+        return type;
     }
 
     @Override

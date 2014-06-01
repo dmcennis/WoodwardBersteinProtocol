@@ -23,8 +23,9 @@ public class AnalysisNodeTest extends TestCase {
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         node.transmit(output);
         ByteArrayInputStream input = new ByteArrayInputStream(output.toByteArray());
-        AnalysisNode in = new AnalysisNode();
-        in.parse(input);
+        AnalysisNode in = (AnalysisNode)MessageFactory.parse(input);
+        assertEquals("My analysis",in.getContent());
+        assertEquals(new IdentityName("Daniel"),in.getIdentity());
     }
 
     public void testGetContent() throws Exception {

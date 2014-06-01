@@ -12,6 +12,7 @@ public class AnalysisNode extends MessageNode {
 
     // References (EvidenceNode list) - parsing issue
 
+    public AnalysisNode(){type = Types.ANALYSIS;}
 
     @Override
     public void transmitContent(OutputStream stream) throws IOException {
