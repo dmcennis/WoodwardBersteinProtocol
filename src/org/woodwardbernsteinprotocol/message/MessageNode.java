@@ -33,7 +33,7 @@ public abstract class MessageNode implements MessageInterface, Serializable {
         }
     }
 
-    public abstract void transmitContent(OutputStream stream);
+    public abstract void transmitContent(OutputStream stream) throws IOException;
 
     @Override
     public void parse(InputStream stream) throws IOException {
@@ -44,7 +44,7 @@ public abstract class MessageNode implements MessageInterface, Serializable {
         }
     }
 
-    public abstract void parseContent(InputStream stream);
+    public abstract void parseContent(InputStream stream) throws IOException;
 
     @Override
     public Identity getIdentity() {

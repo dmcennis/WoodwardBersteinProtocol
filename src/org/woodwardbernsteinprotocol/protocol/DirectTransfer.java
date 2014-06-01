@@ -1,12 +1,11 @@
 package org.woodwardbernsteinprotocol.protocol;
 
-import com.sun.xml.internal.messaging.saaj.util.ByteInputStream;
 import org.apache.commons.codec.binary.Base64InputStream;
 import org.apache.commons.codec.binary.Base64OutputStream;
 import org.apache.commons.httpclient.HostConfiguration;
 import org.apache.commons.httpclient.HttpConnection;
+import org.apache.http.params.HttpConnectionParams;
 import org.woodwardbernsteinprotocol.message.Tip;
-import sun.net.www.http.HttpClient;
 
 import java.io.*;
 import java.net.URL;
@@ -36,6 +35,8 @@ public class DirectTransfer implements LinkProtocol {
         client.open();
         byte[] buffer = new byte[10240];
         int read = 0;
+        byte[] start = new byte[]{'t','i','p','='};
+        client.write(start);
         while((read = writer.read(buffer,0,10240))>0){
             client.write(buffer,0,read);
         }
