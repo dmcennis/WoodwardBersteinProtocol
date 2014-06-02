@@ -6,6 +6,7 @@ import java.io.OutputStream;
 
 /**
  * Created by dmcennis on 5/31/2014.
+ * Licensed under the Apache 2.0 license.  See license.txt
  * TODO: Store PGP keys
  */
 public class IdentitySignature implements Identity {

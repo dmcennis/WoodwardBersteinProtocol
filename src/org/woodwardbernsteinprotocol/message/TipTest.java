@@ -6,7 +6,10 @@ import org.woodwardbernsteinprotocol.identity.IdentityName;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.util.Vector;
-
+/**
+ * Created by dmcennis.
+ * Licensed under the Apache 2.0 license.  See license.txt
+ */
 public class TipTest extends TestCase {
 
     public void testTransmitContentSimple() throws Exception {

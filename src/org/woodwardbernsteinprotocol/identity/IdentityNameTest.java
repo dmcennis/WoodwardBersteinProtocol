@@ -1,5 +1,9 @@
 package org.woodwardbernsteinprotocol.identity;
 
+/**
+ * Created by Daniel McEnnis
+ * Licensed under the Apache 2.0 license.  See license.txt
+ */
 import junit.framework.TestCase;
 
 import java.io.ByteArrayInputStream;

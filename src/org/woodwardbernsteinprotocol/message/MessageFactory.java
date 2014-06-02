@@ -6,6 +6,7 @@ import java.io.ObjectInputStream;
 
 /**
  * Created by dmcennis on 6/1/2014.
+ * Licensed under the Apache 2.0 license.  See license.txt
  */
 public class MessageFactory {
     public static MessageInterface parse(InputStream input) throws IOException, ClassNotFoundException{

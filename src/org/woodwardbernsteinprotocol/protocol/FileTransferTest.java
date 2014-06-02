@@ -9,6 +9,11 @@ import org.woodwardbernsteinprotocol.message.Tip;
 import java.io.File;
 import java.net.URL;
 
+/**
+ * Created by dmcennis.
+ * Licensed under the Apache 2.0 license.  See license.txt
+ */
+
 public class FileTransferTest extends TestCase {
 
     public void testTransmit() throws Exception {

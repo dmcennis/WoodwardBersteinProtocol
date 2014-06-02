@@ -7,6 +7,10 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.util.Vector;
 
+/**
+ * Created by dmcennis.
+ * Licensed under the Apache 2.0 license.  See license.txt
+ */
 public class ReputationDecoratorTest extends TestCase {
 
     public void testGetChildren() throws Exception {

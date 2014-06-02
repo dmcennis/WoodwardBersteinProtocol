@@ -7,7 +7,10 @@ import org.woodwardbernsteinprotocol.identity.IdentityName;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.net.URL;
-
+/**
+ * Created by dmcennis.
+ * Licensed under the Apache 2.0 license.  See license.txt
+ */
 public class EvidenceNodeTest extends TestCase {
 
     public void testTransmitContent() throws Exception {
