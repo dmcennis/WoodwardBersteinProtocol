@@ -9,4 +9,4 @@ Facebook-style message privacy control (forthcoming)
 Internet style messaging ARPA style over every message protocol
 'tip' with 'evidence' and 'comments/analyis'
 recommendation / reputation system for escalating content from 'trusted' sources (forthcoming)
-Local only machine learning to handle informtaion overload (forthcoming)
+Local only machine learning to handle information overload (forthcoming)
